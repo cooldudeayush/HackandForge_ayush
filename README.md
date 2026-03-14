@@ -1,6 +1,6 @@
 # RecruitAI - Enterprise Interview Simulation Platform
 
-An intelligent web-based interview simulation system powered by Ollama. Supports three user roles (Admin, Interviewer, Candidate), dynamic question progression across three stages, real-time AI scoring, benchmark comparison, and full PDF report export.
+An intelligent web-based interview simulation system powered by Ollama. Supports three user roles (Admin, Interviewer, Candidate), dynamic question progression across three stages, real-time AI scoring, benchmark comparison, admin access gating, and full PDF report export.
 
 ---
 
@@ -17,6 +17,7 @@ An intelligent web-based interview simulation system powered by Ollama. Supports
 - **Gap Analysis Table** - Per-dimension comparison with meets/below status and visual bars
 - **AI Executive Summary** - Auto-generated hire/no-hire recommendation with evidence-based reasoning
 - **PDF Export** - Full report with all tables, scores, and analysis via jsPDF
+- **Admin Access Gate** - Lightweight passcode lock for the admin workspace during demos
 - **LocalStorage Persistence** - All data (sessions, roles, questions) stored in the browser
 - **Session Timer** - Tracks interview duration
 
@@ -28,7 +29,7 @@ An intelligent web-based interview simulation system powered by Ollama. Supports
 |---|---|
 | Frontend | React 18 + Vite |
 | Styling | Plain CSS with CSS variables (no framework) |
-| AI Engine | Ollama local API (deepseek-r1:8b) |
+| AI Engine | Ollama local API |
 | Charts | Custom SVG radar chart |
 | PDF | jsPDF + jspdf-autotable |
 | State | React Context + LocalStorage |
@@ -48,7 +49,7 @@ cd recruitai
 npm install
 ```
 
-### 2. Configure your API key
+### 2. Configure Ollama
 
 Run Ollama locally and the app will call your local model directly.
 
@@ -58,8 +59,11 @@ Create `.env`:
 
 ```env
 VITE_OLLAMA_API_URL=http://localhost:11434/api/generate
-VITE_OLLAMA_MODEL=deepseek-r1:8b
+VITE_OLLAMA_MODEL=gpt-oss:120b-cloud
+VITE_ADMIN_PASSCODE=admin123
 ```
+
+`VITE_ADMIN_PASSCODE` is optional. If omitted, the app falls back to `admin123`.
 
 ### 3. Start the development server
 
@@ -113,12 +117,18 @@ recruitai/
 
 ## How to Use
 
+## Demo Access
+
+- **Admin demo passcode:** `admin123`
+- This passcode is intended only for hackathon evaluation and prototype walkthroughs.
+
 ### As Admin
 1. Enter as **Admin**
-2. **Job Roles** tab - view or add custom roles with JD and expertise areas
-3. **Benchmarks** tab - set expected minimum scores per dimension for each role using sliders
-4. **Question Bank** tab - view all 24 default questions or add custom ones; filter by role/stage
-5. **Settings** tab - configure default difficulty, questions per stage, and hire threshold
+2. Unlock the admin workspace with the configured passcode
+3. **Job Roles** tab - view or add custom roles with JD and expertise areas
+4. **Benchmarks** tab - set expected minimum scores per dimension for each role using sliders
+5. **Question Bank** tab - view all 24 default questions or add custom ones; filter by role/stage
+6. **Settings** tab - configure default difficulty, questions per stage, and hire threshold
 
 ### As Interviewer
 1. Enter as **Interviewer**
@@ -148,7 +158,8 @@ recruitai/
 
 - **Add a new role:** Admin -> Job Roles -> Add Role, then Admin -> Question Bank -> add questions for that role
 - **Adjust benchmarks:** Admin -> Benchmarks -> slide per-dimension targets for any role
-- **Change AI model:** Edit `MODEL` constant in `src/utils/ai.js`
+- **Change AI model:** Update `VITE_OLLAMA_MODEL` in `.env`
+- **Change admin passcode:** Update `VITE_ADMIN_PASSCODE` in `.env`
 - **Add voice input:** Integrate Web Speech API in `Interview.jsx` alongside the textarea
 - **Backend integration:** Replace `src/utils/storage.js` with API calls to a real database
 
@@ -214,6 +225,7 @@ recruitai/
 
 - All AI processing is local - no cloud credentials required
 - App works offline once Ollama and the model are downloaded
+- Admin configuration is protected by a lightweight passcode gate for demo control
 - Data persists in browser LocalStorage - clears if browser data is wiped
 - node_modules and dist are included for zero-setup convenience
 
