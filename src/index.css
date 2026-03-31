@@ -254,6 +254,12 @@ input[type="range"]:focus { box-shadow: none; border-color: transparent; }
   padding: 14px 16px; box-shadow: var(--shadow-sm);
 }
 
+.msg-meta {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--c-ink-4);
+}
+
 /* ── Tooltip ── */
 .tooltip-wrap { position: relative; }
 .tooltip {
@@ -877,6 +883,105 @@ input[type="range"]:focus { box-shadow: none; border-color: transparent; }
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
+.mode-toggle-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(15, 14, 23, 0.08);
+  background: rgba(250, 250, 248, 0.92);
+}
+
+.mode-toggle-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--c-ink);
+}
+
+.mode-toggle-copy {
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--c-ink-3);
+}
+
+.mode-toggle {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 96px;
+  padding: 6px 10px;
+  border: 1px solid rgba(15, 14, 23, 0.08);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--c-ink-3);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.mode-toggle.active {
+  background: var(--c-blue-bg);
+  color: var(--c-primary);
+  border-color: rgba(79, 110, 247, 0.22);
+}
+
+.mode-toggle-knob {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(15, 14, 23, 0.18);
+  transition: background var(--transition), transform var(--transition);
+}
+
+.mode-toggle.active .mode-toggle-knob {
+  background: var(--c-primary);
+  transform: scale(1.02);
+}
+
+.upload-status-card {
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(238, 241, 254, 0.75);
+  border: 1px solid rgba(79, 110, 247, 0.14);
+}
+
+.upload-status-card.error {
+  background: var(--c-red-bg);
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+.upload-status-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c-primary);
+}
+
+.upload-status-card.error .upload-status-title {
+  color: var(--c-red-text);
+}
+
+.upload-status-copy {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--c-ink-3);
+  line-height: 1.6;
+}
+
+.upload-status-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
 /* Interview */
 .interview-shell {
   min-height: 100vh;
@@ -1087,6 +1192,66 @@ input[type="range"]:focus { box-shadow: none; border-color: transparent; }
   gap: 10px;
 }
 
+.interview-input-stack {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.interview-input-actions {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.interview-voice-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--c-ink-4);
+  flex-shrink: 0;
+}
+
+.interview-voice-dot.ok {
+  background: var(--c-green);
+}
+
+.interview-voice-dot.off {
+  background: var(--c-red);
+}
+
+.interview-voice-dot.live {
+  background: var(--c-rose);
+  box-shadow: 0 0 0 6px rgba(244, 63, 94, 0.14);
+}
+
+.interview-voice-error {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: var(--c-red-bg);
+  color: var(--c-red-text);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.interview-dictation-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(238, 241, 254, 0.88);
+  color: var(--c-primary);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.interview-dictation-preview {
+  color: var(--c-ink-3);
+}
+
 .eval-card-header {
   display: flex;
   align-items: center;
@@ -1278,6 +1443,15 @@ input[type="range"]:focus { box-shadow: none; border-color: transparent; }
 
   .interview-input-row {
     flex-direction: column;
+  }
+
+  .interview-input-actions {
+    width: 100%;
+  }
+
+  .mode-toggle-card {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .login-header {

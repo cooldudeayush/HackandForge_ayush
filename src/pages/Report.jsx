@@ -14,6 +14,7 @@ export default function Report() {
   const dims = s.dimensions || {}
   const bm = s.benchmark || {}
   const duration = s.duration ? `${Math.floor(s.duration / 60)}m ${s.duration % 60}s` : '-'
+  const memory = s.interviewMemory || {}
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
@@ -94,6 +95,34 @@ export default function Report() {
                 </div>
               </>
             )}
+          </div>
+        )}
+
+        {(memory.education?.length || memory.projectsMentioned?.length || memory.toolsClaimed?.length || memory.ownershipEvidence?.length || memory.impactMetrics?.length) && (
+          <div className="card report-summary-card" style={{ marginBottom: 18 }}>
+            <div className="section-heading-row" style={{ marginBottom: 12 }}>
+              <div>
+                <h3>Structured Candidate Snapshot</h3>
+                <p className="section-note">Compact facts captured during the interview to help with grounded review.</p>
+              </div>
+            </div>
+
+            <div className="grid-3">
+              {[
+                { label: 'Education', val: memory.education?.join(' | ') },
+                { label: 'Projects Mentioned', val: memory.projectsMentioned?.join(' | ') },
+                { label: 'Tools Claimed', val: memory.toolsClaimed?.join(', ') },
+                { label: 'Ownership Evidence', val: memory.ownershipEvidence?.join(' | ') },
+                { label: 'Impact Metrics', val: memory.impactMetrics?.join(' | ') }
+              ]
+                .filter((item) => item.val)
+                .map(({ label, val }) => (
+                  <div key={label} className="report-detail-card">
+                    <div className="report-detail-label">{label}</div>
+                    <div className="report-detail-value">{val}</div>
+                  </div>
+                ))}
+            </div>
           </div>
         )}
 
